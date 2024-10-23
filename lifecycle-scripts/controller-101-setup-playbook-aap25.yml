@@ -250,7 +250,7 @@
         project: "Apache playbooks"
         credential: lab-credentials
         survey_enabled: yes
-        survey_spec: "{{ lookup('file', 'files/apache_survey.json') }}"
+        survey_spec: "{{ lookup('file', 'controller-101-2024/playbooks-apache/files/apache_survey.json') }}"
       tags:
           - solve-jt_survey
           - solve-all
@@ -261,7 +261,7 @@
         job_template: "Install Apache with Survey"
       register: job_apache_survey
       tags:
-        - solve-jt_survey
+        - solve-jt_survey_launch
         - solve-all
         
 ### end survey
@@ -561,13 +561,19 @@
         project: "Apache playbooks"
         credential: lab-credentials
         survey_enabled: yes
-        survey_spec: "{{ lookup('file', 'files/apache_survey.json') }}"
+        survey_spec: "{{ lookup('file', 'controller-101-2024/playbooks-apache/files/apache_survey.json') }}"
       check_mode: true
       register: check_survey
       failed_when: check_survey.changed
       tags:
           - check-jt_survey
           - check-all
+
+      
+    - name: Print jt_survey
+      ansible.builtin.debug:
+        var: check_survey
+        verbosity: 2
 
 #########################################
 ## execution checks // apache service, package, html
