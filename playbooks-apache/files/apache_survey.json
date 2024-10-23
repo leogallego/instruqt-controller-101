@@ -1,6 +1,5 @@
 {
-    "name": "Install Apache with Survey",
-    "description": "Name Survey for Apache install playbook",
+    "name": "Install Apache with name survey",
     "spec": [
         {
         "type": "text",
