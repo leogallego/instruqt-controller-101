@@ -1,5 +1,5 @@
 {
-    "name": "Install Apache with name survey",
+    "name": "Install Apache with Survey",
     "spec": [
         {
         "type": "text",
