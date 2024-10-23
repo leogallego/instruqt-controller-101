@@ -575,7 +575,7 @@
         var: check_survey
         verbosity: 2
       tags:
-        - check_jt_survey
+        - check-jt_survey
 
 #########################################
 ## execution checks // apache service, package, html
