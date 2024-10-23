@@ -5,7 +5,7 @@
         {
         "type": "text",
         "question_name": "What is your name, fellow student?",
-        "question_description": "Enter your name or nickname to see it works!",
+        "question_description": "Enter your name or nickname to see the survey in action",
         "variable": "student_name",
         "required": false,
         "default": "Skippy"
