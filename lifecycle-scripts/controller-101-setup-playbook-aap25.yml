@@ -1,6 +1,7 @@
 ---
 - name: Instruqt controller-101-2024
   hosts: localhost
+  connection: local
   become: false
   gather_facts: false
 
@@ -8,11 +9,12 @@
     - ansible.controller 
 
   vars:
-    controller_host: localhost
+    controller_host: "https://control.{{ SANDBOX_ID }}.instruqt.io/api/controller/"
     controller_user: admin
     controller_pass: ansible123!
     inventory_name: Lab-Inventory
     credentials_name: lab-credentials
+    SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
 #    
 
   tasks:
