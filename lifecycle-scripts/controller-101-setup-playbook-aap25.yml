@@ -9,24 +9,21 @@
     - ansible.controller 
 
   vars:
-    controller_host: "https://control.{{ SANDBOX_ID }}.instruqt.io/api/controller/"
-    controller_user: admin
-    controller_pass: ansible123!
+    controller_host: "https://control.{{ SANDBOX_ID }}.svc.cluster.local"
+    controller_username: admin
+    controller_password: ansible123!
     inventory_name: Lab-Inventory
     credentials_name: lab-credentials
     SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
 #    
 
-  tasks:
-    #- name: Add EE to Controller
-    #  ansible.controller.execution_environment:
-    #    name: "servicenow-ee"
-    #    image: "quay.io/acme_corp/servicenow-ee:latest"
-    #  tags:
-    #    - setup-ee
-    #    - setup-controller-101
-    #    - setup-env
-
+  tasks:    
+    - name: Debug SANDBOX_ID
+      ansible.builtin.debug:
+        msg: "https://control.{{ SANDBOX_ID }}.svc.cluster.local"
+      vars:
+        SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
+        
     - name: Create an inventory in automation controller
       ansible.controller.inventory:
         name: Lab-Inventory
