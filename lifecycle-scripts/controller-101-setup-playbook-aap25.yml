@@ -9,21 +9,36 @@
     - ansible.controller 
 
   vars:
-    controller_host: "https://control.{{ SANDBOX_ID }}.svc.cluster.local"
+#    controller_host: "https://control.{{ SANDBOX_ID }}.svc.cluster.local"
+    SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
+    controller_host: "https://{{ CONTROLLER_FQDN }}"
+    CONTROLLER_FQDN: "{{ lookup('env', 'CONTROLLER_HOST') | default('CONTROLLER_HOST_NOT_FOUND', true) }}"
     controller_username: admin
     controller_password: ansible123!
     inventory_name: Lab-Inventory
     credentials_name: lab-credentials
-    SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
-#    
+    
 
   tasks:    
     - name: Debug SANDBOX_ID
       ansible.builtin.debug:
         msg: "https://control.{{ SANDBOX_ID }}.svc.cluster.local"
-      vars:
-        SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
-        
+#      vars:
+#        SANDBOX_ID: "{{ lookup('env', '_SANDBOX_ID') | default('SANDBOX_ID_NOT_FOUND', true) }}"
+      tags:
+        - debug-sandbox
+        - debug-all
+
+    - name: Debug CONTROLLER_HOST
+      ansible.builtin.debug:
+        msg: "https://{{ CONTROLLER_FQDN }}"
+#      vars:
+#        SANDBOX_ID: "{{ lookup('env', 'CONTROLLER_HOST') | default('CONTROLLER_HOST', true) }}"
+      tags:
+        - debug-fqdn
+        - debug-all
+ 
+
     - name: Create an inventory in automation controller
       ansible.controller.inventory:
         name: Lab-Inventory
