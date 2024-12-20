@@ -1,0 +1,27 @@
+---
+ansible-navigator:
+  ansible:
+    inventory:
+      entries:
+      - /home/rhel/ansible-files/hosts
+  execution-environment:
+    container-engine: podman
+    container-options:
+      - "--net=host"
+    enabled: true
+    image: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel9
+    pull:
+      policy: missing
+    environment-variables:
+      pass:
+        - CONTROLLER_USERNAME
+        - CONTROLLER_PASSWORD
+        - CONTROLLER_VERIFY_SSL
+      set:
+        CONTROLLER_HOST: control.${_SANDBOX_ID}.svc.cluster.local
+  logging:
+    level: debug
+  mode: stdout
+  playbook-artifact:
+    save-as: /home/rhel/{playbook_name}-artifact-{time_stamp}.json
+
